@@ -1,6 +1,14 @@
 import React from "react";
 import { Form, Input } from "antd";
 
+const isAddressValidate = (value) => {
+  if (value.length < 4) {
+    return Promise.reject("La dirreccion debe de ser mayor a 4 digitos");
+  }
+
+  return Promise.resolve();
+};
+
 function MyFormAddress() {
   return (
     <Form.Item
@@ -8,10 +16,12 @@ function MyFormAddress() {
       name="address"
       rules={[
         { required: true, message: "Por favor intruduce tu correo!" },
-        {
-          min: 4,
-          message: "La dirreccion debe de ser mayor a 4 digitos",
-        },
+        () => ({
+          validator(_, value) {
+            return isAddressValidate(value);
+          },
+        }),
+        { validateTrigger: "onBlur" },
       ]}
     >
       <Input />

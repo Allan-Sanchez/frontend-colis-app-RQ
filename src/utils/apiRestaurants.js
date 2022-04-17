@@ -1,4 +1,4 @@
-const API = "http://localhost:4000/api";
+const API = import.meta.env.VITE_API_KEY;
 
 export const getRestaurants = async () => {
   const res = await fetch(`${API}/restaurants`);
@@ -19,14 +19,22 @@ export const getOneMenu = async (id) => {
 };
 
 export const addRestaurant = async (data) => {
+  // if (data.phone.length > 0) {
+  //   await fetch(`${API}/phones`, {
+  //     method: "POST",
+  //     body: JSON.stringify(data.phone),
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  //   delete data.phone;
+  // }
+  // console.log(data);
   const res = await fetch(`${API}/restaurants`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },
   });
-  //return ID restaurant
+  // return ID restaurant
   const response = await res.json();
-  // console.log(dataImage);
   console.log(response);
-  // return response;
+  return response;
 };

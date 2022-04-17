@@ -1,7 +1,7 @@
 import React from "react";
-import { Row, Col, Form, Space, Input, Button } from "antd";
+import { Row, Col, Form, Space, Input, Button, Select } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-
+const { Option } = Select;
 function MyFormListPhone() {
   return (
     <Row justify="end">
@@ -15,7 +15,7 @@ function MyFormListPhone() {
                   style={{ display: "flex", marginBottom: 8 }}
                   align="baseline"
                 >
-                  <Form.Item
+                  {/* <Form.Item
                     {...restField}
                     name={[name, "type"]}
                     rules={[{ required: true, message: "Missing first name" }]}
@@ -23,10 +23,21 @@ function MyFormListPhone() {
                     required
                   >
                     <Input placeholder="Tipo de numero" />
+                  </Form.Item> */}
+                  <Form.Item name={[name, "type"]}>
+                    <Select
+                      defaultValue="inital"
+                      style={{ width: 250 }}
+                      // onChange={handleChange}
+                    >
+                      <Option value="inital">-- Selecciona un tipo --</Option>
+                      <Option value="telefono">Telefono</Option>
+                      <Option value="whatsapp">Whatsapp</Option>
+                    </Select>
                   </Form.Item>
                   <Form.Item
                     {...restField}
-                    name={[name, "number"]}
+                    name={[name, "phoneNumber"]}
                     rules={[{ required: true, message: "Missing last name" }]}
                     wrapperCol={{ span: 20 }}
                   >

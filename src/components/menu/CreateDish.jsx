@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Modal, Button, Form, Input, Upload, InputNumber, Select } from "antd";
+import { Modal, Button, Form, Input, Upload, InputNumber, Spin } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import ImageContext from "../../context/ImageContext";
 import { uploadImageDish } from "../../utils/uploadImage";
@@ -42,8 +42,8 @@ function CreateDish({ categoryData }) {
     const data = { ...values, ...responseImage, menuId, restaurantId };
 
     mutation.mutate(data);
-    form.resetFields();
     handleOk();
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -160,9 +160,13 @@ function CreateDish({ categoryData }) {
             <InputNumber placeholder="Precio" addonAfter="Q" size="middle" />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit" size="middle">
-              Guardar Categoria
-            </Button>
+            {mutation.isLoading ? (
+              <Spin />
+            ) : (
+              <Button type="primary" htmlType="submit" size="middle">
+                Guardar Categoria
+              </Button>
+            )}
           </Form.Item>
         </Form>
       </Modal>

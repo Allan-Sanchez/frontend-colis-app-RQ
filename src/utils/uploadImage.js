@@ -1,8 +1,8 @@
-const API = "http://localhost:4000/api/upload";
+const API = import.meta.env.VITE_API_KEY;
 
 export const uploadImage = async (file) => {
   console.log(file);
-  const res = await fetch(`${API}/restaurant`, {
+  const res = await fetch(`${API}/upload/restaurant`, {
     method: "POST",
     body: JSON.stringify({ data: file }),
     headers: { "Content-Type": "application/json" },
@@ -14,7 +14,7 @@ export const uploadImage = async (file) => {
 };
 
 export const uploadImageDish = async (file) => {
-  const res = await fetch(`${API}/dish`, {
+  const res = await fetch(`${API}/upload/dish`, {
     method: "POST",
     body: JSON.stringify({ data: file }),
     headers: { "Content-Type": "application/json" },

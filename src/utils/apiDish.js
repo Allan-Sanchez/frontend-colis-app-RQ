@@ -1,4 +1,5 @@
-const API = "http://localhost:4000/api";
+// const API = "http://localhost:4000/api";
+const API = import.meta.env.VITE_API_KEY;
 
 export const createMenu = async (data) => {
   const res = await fetch(`${API}/menus`, {
