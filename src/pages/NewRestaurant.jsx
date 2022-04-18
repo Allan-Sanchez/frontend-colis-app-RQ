@@ -39,6 +39,7 @@ function NewRestaurant() {
     delete values.upload;
 
     const data = { ...values, ...responseImage, hourClose, hourOpen };
+    // console.log(data);
     mutation.mutate(data, {
       onSettled: () => setLoading(false),
     });

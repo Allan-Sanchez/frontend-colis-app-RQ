@@ -4,7 +4,7 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const isPhoneValidate = (value) => {
-  const numberValidate = value.toString();
+  let numberValidate = value.toString();
   // console.log(numberValidate.length);
   if (numberValidate.length < 8 || numberValidate.length > 8) {
     return Promise.reject("El numero debe de ser de 8 digitos");
@@ -25,7 +25,15 @@ function MyFormListPhone() {
                   style={{ display: "flex", marginBottom: 8 }}
                   align="baseline"
                 >
-                  <Form.Item name={[name, "type"]}>
+                  <Form.Item
+                    name={[name, "type"]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Selecciona el tipo de numero telefonico!",
+                      },
+                    ]}
+                  >
                     <Select
                       defaultValue="inital"
                       style={{ width: 250 }}
@@ -53,7 +61,7 @@ function MyFormListPhone() {
                           return isPhoneValidate(value);
                         },
                       }),
-                      { validateTrigger: "onBlur" },
+                      // { validateTrigger: "onBlur" },
                     ]}
                     wrapperCol={{ span: 20 }}
                   >
