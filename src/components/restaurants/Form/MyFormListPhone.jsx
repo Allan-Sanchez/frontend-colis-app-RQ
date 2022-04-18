@@ -1,7 +1,17 @@
 import React from "react";
-import { Row, Col, Form, Space, Input, Button, Select } from "antd";
+import { Row, Col, Form, Space, InputNumber, Button, Select } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 const { Option } = Select;
+
+const isPhoneValidate = (value) => {
+  const numberValidate = value.toString();
+  // console.log(numberValidate.length);
+  if (numberValidate.length < 8 || numberValidate.length > 8) {
+    return Promise.reject("El numero debe de ser de 8 digitos");
+  }
+
+  return Promise.resolve();
+};
 function MyFormListPhone() {
   return (
     <Row justify="end">
@@ -15,15 +25,6 @@ function MyFormListPhone() {
                   style={{ display: "flex", marginBottom: 8 }}
                   align="baseline"
                 >
-                  {/* <Form.Item
-                    {...restField}
-                    name={[name, "type"]}
-                    rules={[{ required: true, message: "Missing first name" }]}
-                    wrapperCol={{ span: 20 }}
-                    required
-                  >
-                    <Input placeholder="Tipo de numero" />
-                  </Form.Item> */}
                   <Form.Item name={[name, "type"]}>
                     <Select
                       defaultValue="inital"
@@ -38,10 +39,28 @@ function MyFormListPhone() {
                   <Form.Item
                     {...restField}
                     name={[name, "phoneNumber"]}
-                    rules={[{ required: true, message: "Missing last name" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Escribir un numero de telefono!",
+                      },
+                      {
+                        type: "integer",
+                        message: "Este campo debe ser numerico",
+                      },
+                      () => ({
+                        validator(_, value) {
+                          return isPhoneValidate(value);
+                        },
+                      }),
+                      { validateTrigger: "onBlur" },
+                    ]}
                     wrapperCol={{ span: 20 }}
                   >
-                    <Input placeholder="numero telefonico" />
+                    <InputNumber
+                      style={{ width: 200 }}
+                      placeholder="numero telefonico"
+                    />
                   </Form.Item>
                   <MinusCircleOutlined onClick={() => remove(name)} />
                 </Space>
