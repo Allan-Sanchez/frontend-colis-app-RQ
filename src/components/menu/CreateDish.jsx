@@ -164,7 +164,7 @@ function CreateDish({ categoryData }) {
               <Spin />
             ) : (
               <Button type="primary" htmlType="submit" size="middle">
-                Guardar Categoria
+                Guardar Platillo
               </Button>
             )}
           </Form.Item>
