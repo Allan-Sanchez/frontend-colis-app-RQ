@@ -11,6 +11,7 @@ const { TextArea } = Input;
 function CreateDish({ categoryData }) {
   const queryClient = useQueryClient();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
   const { pathImage, setPreviewSource } = useContext(ImageContext);
   const mutation = useMutation(createDish, {
     onSuccess: () => {
@@ -33,6 +34,7 @@ function CreateDish({ categoryData }) {
   };
   // form
   const onFinish = async (values) => {
+    setSaveLoading(true);
     delete values.upload;
 
     const menuId = categoryData.id;
@@ -43,6 +45,7 @@ function CreateDish({ categoryData }) {
 
     mutation.mutate(data);
     handleOk();
+    setSaveLoading(false);
     form.resetFields();
   };
 
@@ -160,7 +163,7 @@ function CreateDish({ categoryData }) {
             <InputNumber placeholder="Precio" addonAfter="Q" size="middle" />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            {mutation.isLoading ? (
+            {saveLoading ? (
               <Spin />
             ) : (
               <Button type="primary" htmlType="submit" size="middle">

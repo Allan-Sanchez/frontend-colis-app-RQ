@@ -20,7 +20,11 @@ import MyFormListSocialMedia from "../components/restaurants/Form/MyFormListSoci
 function NewRestaurant() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const mutation = useMutation(addRestaurant);
+  const mutation = useMutation(addRestaurant, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("restaurants");
+    },
+  });
   const { pathImage } = useContext(ImageContext);
 
   const onFinishFailed = (errorInfo) => {
@@ -43,7 +47,7 @@ function NewRestaurant() {
     mutation.mutate(data, {
       onSettled: () => setLoading(false),
     });
-    navigate("/");
+    navigate("/restaurants");
   };
 
   return (
